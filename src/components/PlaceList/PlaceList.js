@@ -1,20 +1,26 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import ListItem from '../ListItem/ListItem';
 
 const PlaceList = (props) => {
-    const listItems = props.places.map((place, index) => (
-        <ListItem 
-            key={index} 
-            placeName={place} 
-            onItemPressed={() => props.onItemDeleted(index)}
-        />
-    ))
+    
     return (
-        <View style={styles.listContainer}>
-            {listItems}
-        </View>
-    )
+        <FlatList 
+            style={styles.listContainer}
+
+            // Should be array
+            data={props.places}
+
+            // What to do with the data? Give it a function man!
+            renderItem={(info) => (
+                <ListItem
+                    placeName={info.item.name}
+                    placeImage={info.item.placeImage}
+                    onItemPressed={() => props.onItemDeleted(info.item.key)}
+                />
+            )}
+        />
+    );
 };
 
 const styles = StyleSheet.create({
