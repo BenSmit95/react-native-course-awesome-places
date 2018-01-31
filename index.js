@@ -1,3 +1,19 @@
+import React from 'react';
 import { AppRegistry } from 'react-native';
+import { Provider } from 'react-redux';
 import App from './App';
-AppRegistry.registerComponent('rncourse', () => App);
+import configureStore from './src/store/configureStore';
+
+// create store variable
+const store = configureStore();
+
+// Wrap app in provider component, make it into an arrow function.
+// registerComponent requires the provider component!
+
+const RNRedux = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+AppRegistry.registerComponent('rncourse', () => RNRedux);
